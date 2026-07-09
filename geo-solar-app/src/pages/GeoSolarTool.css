@@ -1,0 +1,68 @@
+:root {
+  --sky-blue: #A7CADF;
+  --blue-jeans: #325978;
+  --dark-blue: #0D243B;
+  --silver-stars: #B8C3C7;
+  --black-cherry: #730F1A;
+}
+
+.tool-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(50, 89, 120, 0.25), transparent 55%),
+    #071320;
+  padding: 60px 24px 80px;
+  overflow-x: hidden;
+}
+
+/* CAMBIO PRINCIPAL: Uso de CSS Grid para dividir en dos columnas */
+.tool-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1300px; /* Un poco más ancho para que respiren las columnas */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr; /* 1.5 para el mapa (izq), 1 para el panel (der) */
+  gap: 24px;
+  align-items: start; /* Evita que el panel se estire innecesariamente hacia abajo */
+  animation: toolFadeIn 0.7s ease;
+}
+
+@keyframes toolFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tool-eyebrow {
+  grid-column: 1 / -1; /* Hace que el título ocupe todo el ancho arriba */
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--sky-blue);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.tool-eyebrow .eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--black-cherry);
+  box-shadow: 0 0 8px rgba(115, 15, 26, 0.7);
+}
+
+/* Diseño Responsivo: Pasa a 1 sola columna en pantallas pequeñas */
+@media (max-width: 960px) {
+  .tool-content {
+    grid-template-columns: 1fr; 
+  }
+}
+
+@media (max-width: 600px) {
+  .tool-container { padding: 40px 14px 60px; }
+}

@@ -1,0 +1,123 @@
+/* ============================================
+   HERO MEJORADO — eyebrow, botones y métricas
+   ============================================ */
+
+/* Etiqueta superior (eyebrow) */
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--sky-blue, #A7CADF);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--black-cherry, #730F1A);
+  box-shadow: 0 0 8px rgba(115, 15, 26, 0.7);
+}
+
+.eyebrow-line {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(167, 202, 223, 0.6), transparent);
+}
+
+/* Palabra resaltada del título */
+.hero-glass-panel h2 .highlight {
+  color: var(--sky-blue, #A7CADF);
+}
+
+/* Botones del hero */
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.cta-primary,
+.cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-primary {
+  background: var(--sky-blue, #A7CADF);
+  color: var(--dark-blue, #0D243B);
+  border: none;
+  box-shadow: 0 4px 20px rgba(167, 202, 223, 0.25);
+}
+
+.cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 26px rgba(167, 202, 223, 0.4);
+}
+
+.cta-secondary {
+  background: transparent;
+  color: var(--sky-blue, #A7CADF);
+  border: 1px solid rgba(167, 202, 223, 0.45);
+}
+
+.cta-secondary:hover {
+  background: rgba(167, 202, 223, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Fila de métricas */
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 55px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(167, 202, 223, 0.15);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  color: var(--sky-blue, #A7CADF);
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-label {
+  color: var(--silver-stars, #B8C3C7);
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  margin-top: 6px;
+}
+
+/* El botón "Explorar módulos" baja hasta aquí sin quedar tapado por el header fijo */
+#modulos {
+  scroll-margin-top: 100px;
+}
+
+@media (max-width: 600px) {
+  .hero-stats { gap: 32px; }
+  .stat-number { font-size: 1.8rem; }
+  .hero-cta { gap: 12px; }
+}

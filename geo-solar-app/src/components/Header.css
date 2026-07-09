@@ -1,0 +1,190 @@
+/* Variables de tu Paleta */
+:root {
+  --sky-blue: #A7CADF;
+  --blue-jeans: #325978;
+  --dark-blue: #0D243B;
+  --silver-stars: #B8C3C7;
+  --black-cherry: #730F1A;
+}
+
+.epn-header {
+  background: rgba(13, 36, 59, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  height: 80px;
+  border-bottom: 1px solid rgba(167, 202, 223, 0.18);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* --- SECCIÓN MARCA EPN --- */
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-placeholder {
+  width: 35px;
+  height: 45px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+}
+
+.logo-top-red { background-color: var(--black-cherry); flex: 1; }
+.logo-bottom-blue { background-color: var(--blue-jeans); flex: 1; }
+
+.epn-name {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  color: var(--silver-stars);
+}
+
+.vertical-divider {
+  width: 1px;
+  height: 40px;
+  background-color: var(--blue-jeans);
+  margin: 0 10px;
+}
+
+.project-title {
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+  color: #ffffff;
+}
+
+/* --- NAVEGACIÓN Y BOTONES NEUMÓRFICOS OSCUROS --- */
+.main-nav {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.nav-btn {
+  position: relative;
+  background: transparent;
+  color: var(--silver-stars);
+  border: 1px solid transparent;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Efecto hover suave */
+.nav-btn:hover {
+  color: #ffffff;
+  background: rgba(167, 202, 223, 0.12); /* Sky blue translúcido */
+}
+
+/* Página activa: subrayado fino Sky Blue */
+.nav-btn.active {
+  color: #ffffff;
+}
+
+.nav-btn.active::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 4px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--sky-blue);
+  box-shadow: 0 0 8px rgba(167, 202, 223, 0.6);
+}
+
+.chevron {
+  transition: transform 0.3s ease;
+  font-size: 1.2rem;
+}
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+/* --- DROPDOWN MENU --- */
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--dark-blue);
+  border: 1px solid var(--blue-jeans);
+  border-radius: 8px;
+  min-width: 200px;
+  padding: 8px 0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  animation: slideDown 0.2s ease forwards;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 10px 20px;
+  color: var(--silver-stars);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.dropdown-item:hover:not(.disabled) {
+  background-color: var(--blue-jeans);
+  color: #ffffff;
+}
+
+.dropdown-item.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  font-size: 0.8rem;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- ICONOS DERECHA --- */
+.action-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(167, 202, 223, 0.12);
+  border: 1px solid rgba(167, 202, 223, 0.25);
+  border-radius: 50%;
+  color: var(--sky-blue);
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.icon-btn:hover {
+  color: #ffffff;
+  background: rgba(167, 202, 223, 0.28);
+  transform: scale(1.08);
+}

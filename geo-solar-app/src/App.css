@@ -1,0 +1,74 @@
+/* =========================================
+   VARIABLES GLOBALES (Paleta de Colores)
+   ========================================= */
+:root {
+  --sky-blue: #A7CADF;
+  --blue-jeans: #325978;
+  --dark-blue: #0D243B;
+  --silver-stars: #B8C3C7;
+  --black-cherry: #730F1A;
+  --neumorphic-bg: #c4ced2; /* Tono de transición para el relieve */
+}
+
+/* =========================================
+   RESETEO GLOBAL (Elimina márgenes por defecto)
+   ========================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--silver-stars);
+  color: var(--dark-blue);
+  /* Evita scroll horizontal accidental */
+  overflow-x: hidden; 
+}
+
+/* =========================================
+   LAYOUT PRINCIPAL
+   ========================================= */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100vw; /* Fuerza a ocupar el 100% de la ventana */
+}
+
+/* =========================================
+   CONTENEDOR NEUMÓRFICO CENTRAL (El "Marco")
+   ========================================= */
+.main-workspace {
+  flex: 1; /* Obliga al contenedor a estirarse entre el header y el footer */
+  display: flex;
+  flex-direction: column;
+  
+  /* Márgenes laterales y superior/inferior para dejar ver el fondo */
+  margin: 25px 40px; 
+  
+  background-color: var(--neumorphic-bg);
+  border-radius: 20px;
+  
+  /* Efecto Neumórfico: Sombras internas para hundir el contenedor */
+  box-shadow: 
+    inset 8px 8px 16px rgba(130, 145, 150, 0.8), 
+    inset -8px -8px 16px rgba(255, 255, 255, 0.6),
+    0 15px 30px rgba(0, 0, 0, 0.15); /* Sombra exterior suave para darle peso */
+    
+  /* Oculta cualquier cosa que sobresalga de los bordes redondeados */
+  overflow: hidden; 
+  position: relative;
+}
+
+/* Aseguramos que el contenedor de las páginas (ej. Home.jsx) 
+  se estire para llenar el interior del marco neumórfico 
+*/
+.main-workspace > * {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}

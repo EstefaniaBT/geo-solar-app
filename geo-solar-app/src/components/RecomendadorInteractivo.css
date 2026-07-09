@@ -1,0 +1,115 @@
+.dashboard-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  margin: 20px 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h3 {
+  color: #2c3e50;
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Estilos de los botones selectores */
+.botones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.btn-provincia {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  padding: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #495057;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-provincia:hover {
+  border-color: #3498db;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+}
+
+.btn-provincia.activo {
+  background: #3498db;
+  color: white;
+  border-color: #2980b9;
+}
+
+.badge-region {
+  font-size: 0.75em;
+  background: rgba(0,0,0,0.1);
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+/* Sección de Resultados */
+.resultados-section {
+  margin-top: 40px;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.info-card {
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  border-left: 5px solid;
+}
+
+.suelo-card {
+  background-color: #fff9e6;
+  border-left-color: #f1c40f;
+}
+
+.panel-card {
+  background-color: #eafaf1;
+  border-left-color: #2ecc71;
+}
+
+.info-card h4 {
+  margin-top: 0;
+  color: #333;
+}
+
+.modelo-destacado {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #27ae60;
+}
+
+.cert-badge {
+  display: inline-block;
+  margin-top: 15px;
+  background-color: #2c3e50;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.85em;
+}
+
+/* Animación fluida */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

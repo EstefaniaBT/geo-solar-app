@@ -1,0 +1,114 @@
+:root {
+  --sky-blue: #A7CADF;
+  --blue-jeans: #325978;
+  --dark-blue: #0D243B;
+  --silver-stars: #B8C3C7;
+  --black-cherry: #730F1A;
+}
+
+.map-container {
+  background: rgba(13, 36, 59, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(167, 202, 223, 0.12);
+  border-radius: 20px;
+  padding: 24px;
+  margin: 0;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06), 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+
+.map-container h2 {
+  color: #f5f8fb;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.map-container h2::before {
+  content: "";
+  width: 4px;
+  height: 22px;
+  border-radius: 2px;
+  background: var(--sky-blue);
+  box-shadow: 0 0 10px rgba(167, 202, 223, 0.6);
+}
+
+.map-placeholder {
+  position: relative;
+  min-height: 340px;
+  border-radius: 14px;
+  border: 1px solid rgba(167, 202, 223, 0.18);
+  background:
+    radial-gradient(circle at 30% 35%, rgba(167, 202, 223, 0.10), transparent 42%),
+    radial-gradient(circle at 72% 62%, rgba(50, 89, 120, 0.28), transparent 45%),
+    #0a1c30;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  padding: 30px;
+}
+
+/* Cuadrícula tipo mapa de datos */
+.map-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(167, 202, 223, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167, 202, 223, 0.06) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+/* Puntos de "provincias" */
+.map-placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(5px 5px at 26% 34%, rgba(167, 202, 223, 0.9), transparent 60%),
+    radial-gradient(5px 5px at 58% 54%, rgba(167, 202, 223, 0.7), transparent 60%),
+    radial-gradient(6px 6px at 78% 30%, rgba(115, 15, 26, 0.95), transparent 60%),
+    radial-gradient(5px 5px at 44% 70%, rgba(167, 202, 223, 0.6), transparent 60%),
+    radial-gradient(4px 4px at 66% 78%, rgba(167, 202, 223, 0.55), transparent 60%);
+}
+
+.map-placeholder p {
+  position: relative;
+  z-index: 2;
+  color: var(--silver-stars);
+  max-width: 440px;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.simulate-btn {
+  position: relative;
+  z-index: 2;
+  padding: 12px 26px;
+  background: var(--sky-blue);
+  color: var(--dark-blue);
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 20px rgba(167, 202, 223, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.simulate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 26px rgba(167, 202, 223, 0.4);
+}
