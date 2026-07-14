@@ -1,0 +1,16 @@
+<svg width="320" height="160" viewBox="0 0 320 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="20" y1="18" x2="300" y2="142" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#071A33"/>
+      <stop offset="1" stop-color="#173A6A"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="120" y1="48" x2="200" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE08A"/>
+      <stop offset="1" stop-color="#EAB93D"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="304" height="144" rx="28" fill="url(#bg)"/>
+  <path d="M124 52L160 36L196 52V90C196 102 181 114 160 122C139 114 124 102 124 90V52Z" fill="url(#gold)"/>
+  <path d="M160 48V108M136 72H184" stroke="#071A33" stroke-width="10" stroke-linecap="round"/>
+  <text x="160" y="140" text-anchor="middle" fill="#F5F8FB" font-family="Arial, sans-serif" font-size="26" font-weight="700">Victoria LED</text>
+</svg>

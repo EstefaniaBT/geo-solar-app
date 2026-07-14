@@ -414,6 +414,213 @@ export function obtenerSueloPorId(id) {
   return datosSuelos.find(s => s.id === id);
 }
 
+const ciudadesAProvincias = {
+  Quito: 'Pichincha',
+  Guayaquil: 'Guayas',
+  Cuenca: 'Azuay',
+  Loja: 'Loja',
+  Manta: 'Manabí',
+  Ambato: 'Tungurahua',
+  Otavalo: 'Imbabura'
+};
+
+function normalizarTexto(valor) {
+  return valor
+    .toString()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
+function provinciaDesdeCiudadConfirmada(ciudad) {
+  const ciudadLimpia = ciudad.toString().trim();
+  const provinciaEnParentesis = ciudadLimpia.match(/\(([^)]+)\)/)?.[1];
+
+  if (provinciaEnParentesis) {
+    return provinciaEnParentesis;
+  }
+
+  const nombreCiudad = ciudadLimpia.replace(/\s*\([^)]*\)/g, '');
+  return ciudadesAProvincias[nombreCiudad] || null;
+}
+
+export function obtenerProvinciasProveedor(proveedor) {
+  if (!proveedor) {
+    return [];
+  }
+
+  const provincias = new Set();
+  const provinciaSede = proveedor.provinciaSede ? proveedor.provinciaSede.toString().trim() : '';
+  const ciudadSede = proveedor.ciudadSede ? proveedor.ciudadSede.toString().trim() : '';
+
+  if (
+    provinciaSede &&
+    !['n/d', 'no especificada públicamente', 'no especificada'].includes(normalizarTexto(provinciaSede))
+  ) {
+    provincias.add(provinciaSede);
+  }
+
+  const provinciaDesdeCiudadSede = ciudadesAProvincias[ciudadSede] || null;
+  if (provinciaDesdeCiudadSede) {
+    provincias.add(provinciaDesdeCiudadSede);
+  }
+
+  (proveedor.ciudadesConfirmadas || [])
+    .map(provinciaDesdeCiudadConfirmada)
+    .filter(Boolean)
+    .forEach((provincia) => provincias.add(provincia));
+
+  return [...provincias];
+}
+
+// ------------------------------------------------------------
+// PROVEEDORES DE PANELES BIFACIALES EN ECUADOR
+// Nota: la mayoría son distribuidores con sede en Quito o
+// Guayaquil que despachan a nivel nacional, no locales físicos
+// en cada provincia. Verificar stock/precios directamente antes
+// de publicar en la plataforma, ya que esta info cambia rápido.
+// ------------------------------------------------------------
+export const proveedores = [
+  {
+    id: 'proviento',
+    nombre: 'ProViento',
+    provinciaSede: 'Pichincha',
+    ciudadSede: 'Quito',
+    ciudad: 'Quito',
+    coberturaNacional: true,
+    marcasDisponibles: ['JA Solar', 'Resun Solar', 'Trina Solar'],
+    tipoPanel: 'Incluye modelos bifaciales half-cell de alta eficiencia (18 busbars)',
+    panelesRelacionados: ['p1', 'p6'],
+    sitioWeb: 'proviento.com.ec',
+    notas: 'Vende únicamente celdas grado A; catálogo con paneles bifaciales monocristalinos.',
+    disponibilidad: 'Cobertura nacional',
+    contacto: 'Ventas y despacho a nivel nacional',
+    logoFile: '/logos-proveedores/proviento.svg'
+  },
+  {
+    id: 'distrisolar',
+    nombre: 'DistriSolar Ecuador',
+    provinciaSede: 'No especificada públicamente',
+    ciudadSede: 'N/D',
+    ciudad: 'N/D',
+    coberturaNacional: true,
+    marcasDisponibles: ['Canadian Solar'],
+    tipoPanel: 'Distribuidor de equipos, componentes y accesorios Canadian Solar (incluye línea TOPCon bifacial)',
+    panelesRelacionados: ['p2'],
+    sitioWeb: 'distrisolarecuador.com',
+    notas: 'Distribuidor especializado en Canadian Solar; confirmar sede exacta directamente con la empresa.',
+    disponibilidad: 'Cobertura nacional',
+    contacto: 'Confirmación directa con la empresa',
+    logoFile: '/logos-proveedores/distrisolar.svg'
+  },
+  {
+    id: 'victoria_led',
+    nombre: 'Victoria LED',
+    provinciaSede: 'No especificada públicamente',
+    ciudadSede: 'N/D',
+    ciudad: 'N/D',
+    coberturaNacional: true,
+    marcasDisponibles: ['JA Solar'],
+    tipoPanel: 'Distribuidor oficial JA Solar en Ecuador',
+    panelesRelacionados: ['p1', 'p6'],
+    sitioWeb: 'Facebook: Victoria LED Ecuador',
+    notas: 'Se autodenomina distribuidor oficial JA Solar; verificar catálogo bifacial vigente directamente.',
+    disponibilidad: 'Cobertura nacional',
+    contacto: 'Verificar catálogo bifacial vigente',
+    logoFile: '/logos-proveedores/victoria-led.svg'
+  },
+  {
+    id: 'sunny_future',
+    nombre: 'Sunny Future',
+    provinciaSede: 'Pichincha',
+    ciudadSede: 'Quito',
+    ciudad: 'Quito',
+    coberturaNacional: true,
+    ciudadesConfirmadas: ['Quito', 'Guayaquil', 'Cuenca', 'Loja', 'Manta', 'Ambato'],
+    marcasDisponibles: ['Trina Solar', 'Jinko Solar', 'JA Solar', 'Astro Energy', 'Longi', 'Restar Solar'],
+    tipoPanel: 'Catálogo con tecnologías mono PERC, half-cut y bifacial',
+    panelesRelacionados: ['p1', 'p4', 'p6'],
+    sitioWeb: 'sunnyfuture.co',
+    notas: 'Logística propia de importación (vía Colombia); despacho confirmado a Sierra, Costa y Austro.',
+    disponibilidad: 'Cobertura nacional',
+    contacto: 'Logística propia y despacho nacional',
+    logoFile: '/logos-proveedores/sunny-future.svg'
+  },
+  {
+    id: 'enercity',
+    nombre: 'Enercity S.A.',
+    provinciaSede: 'Pichincha',
+    ciudadSede: 'Quito',
+    ciudad: 'Quito',
+    coberturaNacional: true,
+    ciudadesConfirmadas: ['Quito', 'Guayaquil', 'Otavalo (Imbabura)'],
+    marcasDisponibles: ['Varias (integrador/instalador, no fabricante único)'],
+    tipoPanel: 'Diseño, venta e instalación de sistemas fotovoltaicos residenciales, comerciales e industriales',
+    panelesRelacionados: ['p1', 'p2', 'p3', 'p4'],
+    sitioWeb: 'enercitysa.com',
+    notas: 'Más de 2000 proyectos instalados; actúa como integrador, no solo vendedor de módulos.',
+    disponibilidad: 'Cobertura nacional',
+    contacto: 'Diseño, venta e instalación',
+    logoFile: '/logos-proveedores/enercity.svg'
+  },
+  {
+    id: 'panel_solar_ecuador',
+    nombre: 'Panel Solar Ecuador',
+    provinciaSede: 'N/D',
+    ciudadSede: 'N/D',
+    ciudad: 'N/D',
+    coberturaNacional: true,
+    ciudadesConfirmadas: ['Quito', 'Guayaquil', 'Cuenca', 'Loja', 'Manta', 'Ambato'],
+    marcasDisponibles: ['No especifica marcas puntuales'],
+    tipoPanel: 'Paneles residenciales/comerciales, kits, bombeo solar',
+    panelesRelacionados: ['p4'],
+    sitioWeb: 'panelsolarecuador.com',
+    notas: 'Cobertura amplia declarada, pero no detalla si maneja específicamente línea bifacial.',
+    disponibilidad: 'Cobertura nacional',
+    contacto: 'Consulta comercial referencial',
+    logoFile: '/logos-proveedores/panel-solar-ecuador.svg'
+  }
+];
+
+// ------------------------------------------------------------
+// FUNCIÓN AUXILIAR: proveedores con cobertura confirmada en
+// una ciudad/provincia dada (para el mapa interactivo)
+// ------------------------------------------------------------
+export function obtenerProveedoresPorCobertura(ciudadOProvincia) {
+  if (!ciudadOProvincia) {
+    return proveedores;
+  }
+
+  const provinciaSeleccionada = obtenerSueloPorId(ciudadOProvincia)?.provincia || ciudadOProvincia;
+  const textoBusqueda = normalizarTexto(provinciaSeleccionada);
+
+  return proveedores.filter((proveedor) => {
+    const sedeProvincia = normalizarTexto(proveedor.provinciaSede);
+    const sedeCiudad = normalizarTexto(proveedor.ciudadSede);
+    const tieneUbicacionEspecifica =
+      !['n/d', 'no especificada públicamente', 'no especificada'].includes(sedeProvincia) ||
+      !['n/d'].includes(sedeCiudad);
+
+    if (!tieneUbicacionEspecifica) {
+      return true;
+    }
+
+    const ciudadesConfirmadas = proveedor.ciudadesConfirmadas || [];
+    const provinciasConfirmadas = ciudadesConfirmadas
+      .map(provinciaDesdeCiudadConfirmada)
+      .filter(Boolean)
+      .map(normalizarTexto);
+
+    const coincideCiudadOProvincia = provinciasConfirmadas.includes(textoBusqueda);
+
+    return (
+      sedeProvincia === textoBusqueda ||
+      sedeCiudad === textoBusqueda ||
+      coincideCiudadOProvincia
+    );
+  });
+}
+
 // ------------------------------------------------------------
 // CATÁLOGO REFERENCIAL DE PROVEEDORES
 // Nota: el proyecto no gestiona ventas ni stock en tiempo real.
@@ -468,8 +675,8 @@ export function obtenerCategoriaAlbedo(albedo) {
 // FUNCIÓN AUXILIAR: obtener proveedores referenciales por panel
 // ------------------------------------------------------------
 export function obtenerProveedoresPorPanel(panelId) {
-  return catalogoProveedoresReferenciales.filter(proveedor =>
-    proveedor.cobertura.includes(panelId)
+  return proveedores.filter(proveedor =>
+    proveedor.panelesRelacionados.includes(panelId)
   );
 }
 

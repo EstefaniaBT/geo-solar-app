@@ -159,6 +159,9 @@
 }
 
 .supplier-badge {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
   background: rgba(167, 202, 223, 0.1);
   border: 1px solid rgba(167, 202, 223, 0.3);
   color: var(--sky-blue);
@@ -168,6 +171,13 @@
   font-weight: 600;
   letter-spacing: 0.5px;
   transition: all 0.2s ease;
+}
+
+.supplier-badge small {
+  color: var(--silver-stars);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2px;
 }
 
 .supplier-badge:hover {

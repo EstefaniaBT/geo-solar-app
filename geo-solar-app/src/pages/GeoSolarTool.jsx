@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import InteractiveMap from '../components/InteractiveMap';
+import ProvidersList from '../components/ProvidersList';
 import ControlPanel from '../components/ControlPanel';
 import SearchEngine from '../components/SearchEngine';
 import './GeoSolarTool.css';
@@ -25,10 +26,14 @@ function GeoSolarTool() {
           />
         </div>
         
-        <InteractiveMap
-          selectedProvince={selectedProvince}
-          setSelectedProvince={setSelectedProvince}
-        />
+        <div className="tool-map-column">
+          <InteractiveMap
+            selectedProvince={selectedProvince}
+            setSelectedProvince={setSelectedProvince}
+          />
+
+          <ProvidersList selectedProvince={selectedProvince} />
+        </div>
 
         <ControlPanel
           selectedProvince={selectedProvince} 

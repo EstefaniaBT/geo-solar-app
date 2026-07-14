@@ -60,10 +60,22 @@
   grid-column: 1 / -1;
 }
 
+.tool-map-column {
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
 /* Diseño Responsivo: Pasa a 1 sola columna en pantallas pequeñas */
 @media (max-width: 960px) {
   .tool-content {
     grid-template-columns: 1fr; 
+  }
+
+  .tool-map-column {
+    grid-column: auto;
   }
 }
 

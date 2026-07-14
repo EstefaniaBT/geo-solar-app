@@ -5,6 +5,8 @@ import {
   obtenerCategoriaAlbedo,
   obtenerPanelRecomendado,
   obtenerProveedoresPorPanel,
+  obtenerProveedoresPorCobertura,
+  obtenerProvinciasProveedor,
   obtenerSueloPorId,
   referenciaAlbedo
 } from '../data/solarData';
@@ -15,7 +17,11 @@ function ControlPanel({ selectedProvince, setSelectedProvince, selectedTech, set
   const showResults = Boolean(selectedSuelo);
   const panelSeleccionado = catalogoPaneles.find(panel => panel.id === selectedTech) || catalogoPaneles[0];
   const panelRecomendado = selectedSuelo ? obtenerPanelRecomendado(selectedSuelo.albedo) : null;
-  const proveedores = panelSeleccionado ? obtenerProveedoresPorPanel(panelSeleccionado.id) : [];
+  const proveedoresPorProvincia = selectedSuelo ? obtenerProveedoresPorCobertura(selectedProvince) : [];
+  const proveedoresPorPanel = panelSeleccionado ? obtenerProveedoresPorPanel(panelSeleccionado.id) : [];
+  const proveedores = selectedSuelo
+    ? proveedoresPorProvincia
+    : proveedoresPorPanel;
   const categoriaAlbedo = selectedSuelo ? obtenerCategoriaAlbedo(selectedSuelo.albedo) : null;
 
   const handleConsult = (e) => {
@@ -99,15 +105,28 @@ function ControlPanel({ selectedProvince, setSelectedProvince, selectedTech, set
             <div className="impact-alert alert-blue" style={{ marginBottom: '16px' }}>
               <strong>Ventaja técnica:</strong> {panelSeleccionado.ventaja}
             </div>
-            <h4>Proveedores referenciales</h4>
+            <h4>Proveedores por provincia</h4>
             <p style={{ fontSize: '0.85rem', color: 'var(--silver-stars)', margin: '0 0 10px 0' }}>
-              Catálogo informativo asociado a <strong>{panelSeleccionado.modelo}</strong>:
+              {selectedSuelo ? (
+                <>
+                  Cobertura disponible para <strong>{selectedSuelo.provincia}</strong>. Los proveedores sin sede pública aparecen en todas las provincias.
+                </>
+              ) : (
+                <>
+                  Catálogo informativo asociado a <strong>{panelSeleccionado.modelo}</strong>.
+                </>
+              )}
             </p>
             {proveedores.length > 0 ? (
               <div className="suppliers-list">
                 {proveedores.map((proveedor) => (
-                  <span key={proveedor.id} className="supplier-badge" title={`${proveedor.ciudad} · ${proveedor.contacto}`}>
+                  <span
+                    key={proveedor.id}
+                    className="supplier-badge"
+                    title={`${obtenerProvinciasProveedor(proveedor).join(' · ') || proveedor.ciudad} · ${proveedor.contacto}`}
+                  >
                     {proveedor.nombre}
+                    <small>{obtenerProvinciasProveedor(proveedor).join(' · ') || 'Cobertura nacional'}</small>
                   </span>
                 ))}
               </div>
