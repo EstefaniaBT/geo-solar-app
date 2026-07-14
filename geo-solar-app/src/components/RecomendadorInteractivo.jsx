@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { datosSuelos, catalogoPaneles } from '../data/solarData';
+import { catalogoPaneles, datosSuelos, obtenerPanelRecomendado } from '../data/solarData';
 import './RecomendadorInteractivo.css';
 
 function RecomendadorInteractivo() {
@@ -8,17 +8,8 @@ function RecomendadorInteractivo() {
 
   const analizarTerreno = (provincia) => {
     setProvinciaSeleccionada(provincia);
-    
-    // Lógica de recomendación simple basada en Albedo y Corrosión
-    let panelRecomendado;
-    if (provincia.riesgoCorrosion === 'Alto' || provincia.riesgoCorrosion === 'Extremo') {
-      panelRecomendado = catalogoPaneles.find(p => p.id === 'p2'); // Panel Anti-salitre
-    } else if (provincia.albedo === 'Alto') {
-      panelRecomendado = catalogoPaneles.find(p => p.id === 'p1'); // Panel Bifacial
-    } else {
-      panelRecomendado = catalogoPaneles[0]; // Por defecto
-    }
-    
+
+    const panelRecomendado = obtenerPanelRecomendado(provincia.albedo) || catalogoPaneles[0];
     setRecomendacion(panelRecomendado);
   };
 
@@ -48,8 +39,9 @@ function RecomendadorInteractivo() {
             <div className="info-card suelo-card">
               <h4>Datos Geológicos</h4>
               <p><strong>Tipo de Suelo:</strong> {provinciaSeleccionada.tipo}</p>
-              <p><strong>Nivel de Albedo:</strong> {provinciaSeleccionada.albedo}</p>
-              <p><strong>Riesgo de Corrosión:</strong> {provinciaSeleccionada.riesgoCorrosion}</p>
+              <p><strong>Nivel de Albedo:</strong> {provinciaSeleccionada.albedo.toFixed(2)} ({provinciaSeleccionada.albedoCategoria})</p>
+              <p><strong>Riesgo de Corrosión:</strong> {provinciaSeleccionada.corrosion}</p>
+              <p><strong>Factibilidad:</strong> {provinciaSeleccionada.viabilidad}</p>
             </div>
 
             <div className="info-card panel-card">

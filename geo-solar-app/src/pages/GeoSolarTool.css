@@ -56,6 +56,10 @@
   box-shadow: 0 0 8px rgba(115, 15, 26, 0.7);
 }
 
+.tool-search {
+  grid-column: 1 / -1;
+}
+
 /* Diseño Responsivo: Pasa a 1 sola columna en pantallas pequeñas */
 @media (max-width: 960px) {
   .tool-content {

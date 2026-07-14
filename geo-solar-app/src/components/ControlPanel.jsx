@@ -1,44 +1,22 @@
 import React from 'react';
+import {
+  catalogoPaneles,
+  datosSuelos,
+  obtenerCategoriaAlbedo,
+  obtenerPanelRecomendado,
+  obtenerProveedoresPorPanel,
+  obtenerSueloPorId,
+  referenciaAlbedo
+} from '../data/solarData';
 import './ControlPanel.css';
 
-const projectData = {
-  Esmeraldas: {
-    geologia: {
-      suelo: "Tierra arcillosa pesada",
-      humedad: "Muy húmedo (retiene agua)",
-      riesgoSuelo: "Alto peligro (Suelo ácido)",
-      impactoEstructural: "Terreno inestable. Las bases necesitan ser profundas y con pintura anticorrosiva."
-    },
-    fiee: {
-      resistividad: "Bajo riesgo (fácil conectar a tierra)",
-      climaSubsuelo: "Cálido",
-      impactoElectrico: "Temperatura cálida exige revisión de calibres de cable por caídas de tensión."
-    }
-  },
-  Pichincha: {
-    geologia: {
-      suelo: "Cangahua en valles secos",
-      humedad: "Muy seco en los valles",
-      riesgoSuelo: "Sin peligro",
-      impactoEstructural: "Suelo plano, duro y estable. Estructuras quedan muy firmes al clavarlas."
-    },
-    fiee: {
-      resistividad: "Riesgo alto (suelo muy seco)",
-      climaSubsuelo: "Frío / Templado",
-      impactoElectrico: "Ideal para disipación térmica. Requiere químicos (bentonita) para la malla de tierra."
-    }
-  }
-};
-
-const proveedoresEcuador = {
-  "Módulo Monocristalino Bifacial": ["EcoSolar EC", "Kruger Energy", "Sistemas Solares Quito"],
-  "Módulo Policristalino Estándar": ["IntiEnergía", "Novopanel Ecuador", "Solares del Austro"]
-};
-
 function ControlPanel({ selectedProvince, setSelectedProvince, selectedTech, setSelectedTech }) {
-  const showResults = selectedProvince !== "";
-  const data = showResults ? projectData[selectedProvince] : null;
-  const proveedores = proveedoresEcuador[selectedTech];
+  const selectedSuelo = selectedProvince ? obtenerSueloPorId(selectedProvince) : null;
+  const showResults = Boolean(selectedSuelo);
+  const panelSeleccionado = catalogoPaneles.find(panel => panel.id === selectedTech) || catalogoPaneles[0];
+  const panelRecomendado = selectedSuelo ? obtenerPanelRecomendado(selectedSuelo.albedo) : null;
+  const proveedores = panelSeleccionado ? obtenerProveedoresPorPanel(panelSeleccionado.id) : [];
+  const categoriaAlbedo = selectedSuelo ? obtenerCategoriaAlbedo(selectedSuelo.albedo) : null;
 
   const handleConsult = (e) => {
     e.preventDefault();
@@ -63,8 +41,11 @@ function ControlPanel({ selectedProvince, setSelectedProvince, selectedTech, set
             className="modern-select"
           >
             <option value="">-- Seleccionar Provincia --</option>
-            <option value="Esmeraldas">Esmeraldas (Costa)</option>
-            <option value="Pichincha">Pichincha (Sierra)</option>
+            {datosSuelos.map((provincia) => (
+              <option key={provincia.id} value={provincia.id}>
+                {provincia.provincia} ({provincia.region})
+              </option>
+            ))}
           </select>
         </div>
 
@@ -75,46 +56,68 @@ function ControlPanel({ selectedProvince, setSelectedProvince, selectedTech, set
             onChange={(e) => setSelectedTech(e.target.value)}
             className="modern-select"
           >
-            <option value="Módulo Monocristalino Bifacial">Módulo Monocristalino Bifacial</option>
-            <option value="Módulo Policristalino Estándar">Módulo Policristalino Estándar</option>
+            {catalogoPaneles.map((panel) => (
+              <option key={panel.id} value={panel.id}>
+                {panel.modelo}
+              </option>
+            ))}
           </select>
         </div>
       </form>
 
-      {showResults && data && (
+      {showResults && selectedSuelo && (
         <div className="results-wrapper">
           <div className="results-card geology-card">
-            <h4>Datos de Geología</h4>
+            <h4>Datos de Geología y Albedo</h4>
             <ul>
-              <li><strong>Suelo:</strong> {data.geologia.suelo}</li>
-              <li><strong>Humedad:</strong> {data.geologia.humedad}</li>
-              <li><strong>Corrosión:</strong> {data.geologia.riesgoSuelo}</li>
+              <li><strong>Provincia:</strong> {selectedSuelo.provincia} · {selectedSuelo.region}</li>
+              <li><strong>Suelo:</strong> {selectedSuelo.tipo}</li>
+              <li><strong>Humedad:</strong> {selectedSuelo.humedad}</li>
+              <li><strong>Albedo:</strong> {selectedSuelo.albedo.toFixed(2)} ({categoriaAlbedo.categoria})</li>
+              <li><strong>Significado:</strong> {selectedSuelo.albedoDescripcion}</li>
+              <li><strong>Corrosión:</strong> {selectedSuelo.corrosion}</li>
+              <li><strong>Resistividad:</strong> {selectedSuelo.resistividad}</li>
             </ul>
             <div className="impact-alert">
-              <strong>Impacto Estructural:</strong> {data.geologia.impactoEstructural}
+              <strong>Factibilidad del terreno:</strong> {selectedSuelo.viabilidad} · {selectedSuelo.viabilidadDescripcion}
+            </div>
+            <div className="impact-alert alert-blue" style={{ marginTop: '12px' }}>
+              <strong>Referencia de albedo:</strong> {referenciaAlbedo.definicion}
             </div>
           </div>
 
           <div className="results-card fiee-card">
-            <h4>Datos de FIEE</h4>
+            <h4>Recomendación Fotovoltaica</h4>
             <ul>
-              <li><strong>Clima Subsuelo:</strong> {data.fiee.climaSubsuelo}</li>
-              <li><strong>Resistividad:</strong> {data.fiee.resistividad}</li>
+              <li><strong>Panel seleccionado:</strong> {panelSeleccionado.modelo}</li>
+              <li><strong>Ideal para albedo:</strong> {panelSeleccionado.idealParaAlbedo}</li>
+              <li><strong>Tecnología:</strong> {panelSeleccionado.tecnologia}</li>
+              {panelRecomendado && (
+                <li><strong>Panel sugerido por el suelo:</strong> {panelRecomendado.modelo}</li>
+              )}
             </ul>
             <div className="impact-alert alert-blue" style={{ marginBottom: '16px' }}>
-              <strong>Impacto Eléctrico:</strong> {data.fiee.impactoElectrico}
+              <strong>Ventaja técnica:</strong> {panelSeleccionado.ventaja}
             </div>
-            
-            <h4>Proveedores en Ecuador</h4>
+            <h4>Proveedores referenciales</h4>
             <p style={{ fontSize: '0.85rem', color: 'var(--silver-stars)', margin: '0 0 10px 0' }}>
-              Comercializan <strong>{selectedTech}</strong>:
+              Catálogo informativo asociado a <strong>{panelSeleccionado.modelo}</strong>:
             </p>
-            <div className="suppliers-list">
-              {proveedores.map((proveedor, index) => (
-                <span key={index} className="supplier-badge">
-                  {proveedor}
-                </span>
-              ))}
+            {proveedores.length > 0 ? (
+              <div className="suppliers-list">
+                {proveedores.map((proveedor) => (
+                  <span key={proveedor.id} className="supplier-badge" title={`${proveedor.ciudad} · ${proveedor.contacto}`}>
+                    {proveedor.nombre}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p style={{ fontSize: '0.85rem', color: 'var(--silver-stars)', margin: 0 }}>
+                No hay proveedores referenciales asociados a este módulo en la base local.
+              </p>
+            )}
+            <div className="impact-alert" style={{ marginTop: '16px' }}>
+              <strong>Disponibilidad:</strong> {proveedores.map((proveedor) => proveedor.disponibilidad).join(' · ') || 'Referencial'}
             </div>
           </div>
 

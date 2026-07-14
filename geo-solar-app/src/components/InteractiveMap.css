@@ -112,3 +112,28 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 26px rgba(167, 202, 223, 0.4);
 }
+
+.selected-province-marker {
+  background: transparent;
+  border: none;
+}
+
+.selected-province-marker__pin {
+  width: 24px;
+  height: 24px;
+  border-radius: 50% 50% 50% 0;
+  background: linear-gradient(180deg, #a7cadf 0%, #325978 100%);
+  transform: rotate(-45deg);
+  box-shadow: 0 0 0 3px rgba(167, 202, 223, 0.25), 0 0 18px rgba(167, 202, 223, 0.5);
+  position: relative;
+}
+
+.selected-province-marker__core {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #071320;
+  position: absolute;
+  top: 7px;
+  left: 7px;
+}

@@ -31,17 +31,26 @@
 }
 
 .logo-placeholder {
-  width: 35px;
+  width: 45px;
   height: 45px;
   display: flex;
-  flex-direction: column;
-  border-radius: 4px;
-  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 4px;
   box-shadow: 0 0 8px rgba(0,0,0,0.5);
 }
 
 .logo-top-red { background-color: var(--black-cherry); flex: 1; }
 .logo-bottom-blue { background-color: var(--blue-jeans); flex: 1; }
+
+/* Asegura que la imagen llene el contenedor correctamente sin deformarse */
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Esto evita que el escudo se estire feo si las proporciones varían */
+  display: block;
+}
 
 .epn-name {
   display: flex;

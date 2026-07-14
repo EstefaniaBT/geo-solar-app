@@ -19,20 +19,22 @@ function About() {
 
         <p className="about-lead">
           La Escuela Politécnica Nacional (EPN) se caracteriza por su rigor científico y su
-          compromiso con el desarrollo tecnológico del Ecuador.
+          compromiso con el desarrollo tecnológico del Ecuador, especialmente en soluciones de
+          energía solar basadas en evidencia.
         </p>
 
         <div className="about-text">
           <p>
             Este repositorio nace como una <strong>iniciativa colaborativa</strong> para evitar la
-            redundancia en las investigaciones. Constantemente, alumnos y docentes generan datos
-            valiosos (como estudios de suelos, mediciones eléctricas, etc.) que muchas veces quedan
-            archivados.
+            redundancia en las investigaciones. Integra estudios de suelo, albedo, corrosión,
+            resistividad y fichas técnicas de paneles bifaciales que muchas veces quedan archivados
+            en documentos aislados.
           </p>
           <p>
             Al digitalizar y estructurar estos datos en plataformas interactivas,
             <strong> democratizamos el acceso a la información técnica validada</strong>, permitiendo
-            que futuros proyectos arranquen desde una base sólida y comprobada.
+            que futuros proyectos arranquen desde una base sólida y comprobada para estimar la
+            factibilidad de ubicar paneles solares según la reflectividad del terreno.
           </p>
         </div>
 

@@ -17,18 +17,18 @@ function Home() {
         <header className="hero-glass-panel">
           <span className="hero-eyebrow">
             <span className="eyebrow-dot"></span>
-            Repositorio de Proyectos EPN
+            Plataforma Geo-Solar EPN
             <span className="eyebrow-line"></span>
           </span>
 
           <h2>
-            Bienvenido al Repositorio de <span className="highlight">Investigaciones EPN</span>
+            Inteligencia <span className="highlight">geo-fotovoltaica</span> para Ecuador
           </h2>
 
           <p>
-            Plataforma centralizada de inteligencia técnica y científica. Nuestro objetivo es optimizar
-            la planificación de nuevos proyectos de ingeniería, reduciendo significativamente los tiempos
-            de investigación y los costos operativos mediante el análisis de datos preexistentes.
+            Plataforma centralizada de consulta técnica que integra albedo de suelos, factibilidad
+            geológica y catálogos de paneles bifaciales para acelerar la toma de decisiones en proyectos
+            solares del Ecuador.
           </p>
 
           <div className="hero-cta">
@@ -43,16 +43,16 @@ function Home() {
 
           <div className="hero-stats">
             <div className="stat-item">
-              <span className="stat-number">9</span>
-              <span className="stat-label">Facultades</span>
+              <span className="stat-number">24</span>
+              <span className="stat-label">Provincias</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-number">6</span>
+              <span className="stat-label">Paneles en catálogo</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">1</span>
-              <span className="stat-label">Módulo operativo</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">24</span>
-              <span className="stat-label">Provincias</span>
+              <span className="stat-label">Motor bidireccional</span>
             </div>
           </div>
         </header>
@@ -82,7 +82,7 @@ function Home() {
             <div className="card-body">
               <p>
                 Base de datos integrada para la toma de decisiones en proyectos de energía solar,
-                cruzando variables topológicas, albedo y tecnologías fotovoltaicas.
+                cruzando albedo, corrosión, resistividad y tecnologías fotovoltaicas bifaciales.
               </p>
               <button className="cyber-btn" onClick={() => navigate('/tool')}>
                 <span>Ingresar al Módulo</span>

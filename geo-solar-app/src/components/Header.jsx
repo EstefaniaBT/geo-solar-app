@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Header.css';
+import logoEPN from '../assets/logoepn.png';
 
 function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -10,9 +11,7 @@ function Header() {
       {/* Sección Izquierda: Logos y Títulos */}
       <div className="brand-section">
         <div className="logo-placeholder">
-          {/* Simulación visual del escudo EPN para mantener las proporciones */}
-          <div className="logo-top-red"></div>
-          <div className="logo-bottom-blue"></div>
+          <img src={logoEPN} alt="Escudo EPN" className="logo-img" />
         </div>
         
         <div className="epn-name">
